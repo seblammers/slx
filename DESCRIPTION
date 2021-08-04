@@ -1,12 +1,13 @@
 Package: slx
 Type: Package
-Title: What the Package Does (Title Case)
+Title: A Personal Collection of Functions
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R:
+    person("Sebastian", "Lammers", email = "sebastian.lammers@posteo.de", 
+    role = c("aut", "cre"))
+Description: These are some useful functions I find myself re-using across projects.
+    Mostly useful for analyses with lme4 and viz with ggplot2.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/seblammers/slx
