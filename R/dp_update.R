@@ -5,28 +5,26 @@
 # note that you have to adapt the function for your
 # project!
 # this serves as an introductory example and code skeleton
-dp_update <- function(
-
-  df = NULL,
-
-  n_subjects = NULL,
-
-  n_stim_levels = NULL,
-
-  n_difficulty_levels = NULL,
-
-  setup = FALSE
-) {
-
-
+dp_update <- function(df = NULL,
+                      n_subjects = NULL, # 11
+                      # define stimulus levels
+                      n_vel_levels = NULL, # 3: fast, medium, slow
+                      n_standards = NULL, # 2: human, square
+                      n_standard_types = NULL, # 2: moving, still
+                      n_difference_type = NULL, # 2: shorter, longer
+                      n_difficulty_levels = NULL, # 3: 0.5, 1, 1.5 (can be shorter or longer)
+                      setup = FALSE) {
   if (setup) {
-
-    df <- tibble::tibble(
+    df <- tibble(
       # put the basic parameters inside
       n_subjects = n_subjects,
-
-      n_stim_levels = n_stim_levels,
-      n_difficulty_levels = n_difficulty_levels)
+      n_vel_levels = n_vel_levels,
+      n_standards = n_standards,
+      n_standard_types = n_standard_types,
+      n_difference_type = n_difference_type,
+      n_difficulty_levels = n_difficulty_levels,
+      n_repetitions = 2, # 2: all distinct trial constellations appear twice
+    )
   }
 
   # here is where the magic happens
@@ -63,17 +61,14 @@ dp_update <- function(
 
   # calculate derived-params based on base-params
   out <- df %>%
-
     # setup/update derived parameters
-    dplyr::mutate(
-      # number of trials per subject
-      n_trials_subject = n_difficulty_levels * n_stim_levels,
+    mutate(
+      n_stim = n_vel_levels * n_standards * n_standard_types * n_difference_type * n_difficulty_levels, # distinct stimuli
 
-      # number of trials for all subjects
+      n_trials_subject = n_repetitions * n_stim,
       n_trials_total = n_trials_subject * n_subjects
     )
 
   # returns a tibble
   out
-
 }
