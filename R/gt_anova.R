@@ -17,10 +17,32 @@ gt_anova <- function(x, pretty = TRUE, highlight = FALSE) {
 
     select(-p.value)
 
+  # get model with lowest AIC
+  # this only pulls out the models name
+  # as specified during assignment
+  # e.g. m1 <- lmer(y ~ x + (1 | subject), df)
+  # here: "m1"
+  min_aic <- out %>%
+    filter(AIC == min(AIC)) %>%
+    pull(Model)
+
+  # get formula from ANOVA object
+  # this pulls out the model formula
+  # here: "m1: y ~ x + (1 | subject)"
+  model_formular <- x %>%
+    attr(., "heading") %>%
+    str_subset({min_aic})
+
+
+  # by default the output will be a {gt} table
   if (pretty) {
     out <- out %>%
       # convert to gt-table
-      gt::gt()
+      gt::gt() %>%
+
+      # add table footer with model formula of lowest aic model
+      gt::tab_source_note(source_note =
+                            gt::md(glue::glue("AIC emo::ji('down_arrow') *{model_formular}*")))
 
     if (highlight) {
       out <- out %>%
@@ -34,7 +56,9 @@ gt_anova <- function(x, pretty = TRUE, highlight = FALSE) {
     }
   }
 
+  # optionally include second model
+  # only interesting for comparisons
+
   out
 
 }
-
