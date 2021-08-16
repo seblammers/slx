@@ -42,7 +42,7 @@ gt_anova <- function(x, pretty = TRUE, highlight = FALSE) {
 
       # add table footer with model formula of lowest aic model
       gt::tab_source_note(source_note =
-                            gt::md(glue::glue("AIC emo::ji('down_arrow') *{model_formular}*")))
+                            gt::md(glue::glue("AIC {emo::ji('down_arrow')} *{model_formular}*")))
 
     if (highlight) {
       out <- out %>%
