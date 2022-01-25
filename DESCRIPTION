@@ -6,7 +6,7 @@ Authors@R:
     person("Sebastian", "Lammers", email = "sebastian.lammers@posteo.de", 
     role = c("aut", "cre"))
 Description: These are some useful functions I find myself re-using across projects.
-    Mostly useful for analyses with lme4 and viz with ggplot2.
+    Mostly useful for analyses with {lme4}, tables with {gt} and viz with {ggplot2}.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
